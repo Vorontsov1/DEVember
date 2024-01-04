@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#b65a41",
-    fontSize: 70,
+      fontSize: 70,
+    fontFamily: 'AmaticBold',
   },
 });
 
