@@ -3,7 +3,7 @@ import {
   AmaticSC_400Regular,
   AmaticSC_700Bold,
 } from "@expo-google-fonts/amatic-sc";
-import { useFonts, Inter_900Black } from "@expo-google-fonts/inter";
+import { useFonts, Inter_900Black, Inter_600SemiBold, Inter_400Regular } from "@expo-google-fonts/inter";
 import { useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -12,6 +12,8 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
       const [fontsLoaded, fontError] = useFonts({
         Inter: Inter_900Black,
+        InterSemi: Inter_600SemiBold,
+        InterReg: Inter_400Regular,
         Amatic: AmaticSC_400Regular,
         AmaticBold: AmaticSC_700Bold,
       });
