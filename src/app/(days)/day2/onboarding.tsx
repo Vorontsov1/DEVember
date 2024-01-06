@@ -8,6 +8,20 @@ import {
   Gesture,
   Directions,
 } from "react-native-gesture-handler";
+import Animated, {
+  FadeIn,
+  FadeOut,
+  BounceInLeft,
+  BounceInRight,
+  FlipInEasyX,
+  FlipOutEasyX,
+  SlideInRight,
+  SlideOutLeft,
+  SlideInLeft,
+  SlideOutRight,
+} from "react-native-reanimated";
+
+
 
 
 
@@ -86,16 +100,31 @@ const OnboardingScreen = () => {
       </View>
 
       <GestureDetector gesture={swipes}>
-        <View style={styles.pageContent}>
-          <FontAwesome5
-            style={styles.image}
-            name={data.icon}
-            size={100}
-            color="#FFDA11"
-          />
+        <View key={screenIndex} style={styles.pageContent}>
+          <Animated.View entering={FadeIn} exiting={FadeOut}>
+            <FontAwesome5
+              style={styles.image}
+              name={data.icon}
+              size={150}
+              color="#FFDA11"
+            />
+          </Animated.View>
+
           <View style={styles.footer}>
-            <Text style={styles.title}>{data.title}</Text>
-            <Text style={styles.description}>{data.description}</Text>
+            <Animated.Text
+              entering={SlideInRight.duration(500)}
+              exiting={SlideOutLeft.duration(500)}
+              style={styles.title}
+            >
+              {data.title}
+            </Animated.Text>
+            <Animated.Text
+              entering={SlideInLeft.delay(50)}
+              exiting={SlideOutRight.duration(500)}
+              style={styles.description}
+            >
+              {data.description}
+            </Animated.Text>
 
             <View style={styles.buttonsRow}>
               <Text onPress={endOnBoarding} style={styles.buttonText}>
@@ -126,7 +155,7 @@ const styles = StyleSheet.create({
   image: {
     alignSelf: "center",
       margin: 20,
-    marginTop: 50,
+    marginTop: 70,
   },
   title: {
     color: "#FDFDFD",
