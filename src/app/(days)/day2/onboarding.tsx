@@ -1,7 +1,9 @@
 import { View, Text, StyleSheet, SafeAreaView, Pressable } from "react-native";
-import { Stack, Link, router} from "expo-router";
+import { Stack, Link, router } from "expo-router";
 import { useState } from "react";
-import { FontAwesome5, } from "@expo/vector-icons"; 
+import { FontAwesome5 } from "@expo/vector-icons";
+import {StatusBar} from 'expo-status-bar';
+
 
 
 const onboardingSteps = [
@@ -25,30 +27,37 @@ const onboardingSteps = [
   },
 ];
 
-
 const OnboardingScreen = () => {
-    const [screenIndex, setScreenIndex ] = useState(0);
-    const data = onboardingSteps[screenIndex];
-    const onContinue = () => {
-        const isLastScreen = screenIndex === onboardingSteps.length - 1
-        if (isLastScreen) {
-            endOnBoarding();
-        } else {
-            setScreenIndex(screenIndex + 1)
-        }
-    }; 
+  const [screenIndex, setScreenIndex] = useState(0);
+  const data = onboardingSteps[screenIndex];
+  const onContinue = () => {
+    const isLastScreen = screenIndex === onboardingSteps.length - 1;
+    if (isLastScreen) {
+      endOnBoarding();
+    } else {
+      setScreenIndex(screenIndex + 1);
+    }
+  };
 
-    
-
-
-    const endOnBoarding = () => {
-        setScreenIndex(0);
-        router.back();
-  }
+  const endOnBoarding = () => {
+    setScreenIndex(0);
+    router.back();
+  };
 
   return (
     <SafeAreaView style={styles.page}>
-      <Stack.Screen options={{ headerShown: false }} />
+          <Stack.Screen options={ { headerShown: false } } />
+          <StatusBar style="light" />
+      <View style={styles.stepIndicatorContainer}>
+        {onboardingSteps.map((step, index) => (
+          <View
+            style={[
+              styles.stepIndicator,
+              { backgroundColor: index === screenIndex ? "#FFDA11" : "grey" },
+            ]}
+          />
+        ))}
+      </View>
       <View style={styles.pageContent}>
         <FontAwesome5
           style={styles.image}
@@ -73,9 +82,7 @@ const OnboardingScreen = () => {
       </View>
     </SafeAreaView>
   );
-}
-
-
+};
 
 const styles = StyleSheet.create({
   page: {
@@ -89,7 +96,8 @@ const styles = StyleSheet.create({
   },
   image: {
     alignSelf: "center",
-    margin: 20,
+      margin: 20,
+    marginTop: 50,
   },
   title: {
     color: "#FDFDFD",
@@ -107,27 +115,39 @@ const styles = StyleSheet.create({
   footer: {
     marginTop: "auto",
   },
-    buttonsRow: {
-        marginTop: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 20,
+  buttonsRow: {
+    marginTop: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 20,
   },
   button: {
     backgroundColor: "#302E38",
-      padding: 12,
-      borderRadius: 50,
-      alignItems: 'center',
+    padding: 12,
+    borderRadius: 50,
+    alignItems: "center",
     flex: 1,
   },
   buttonText: {
-      color: "#FDFDFD",
-      fontFamily: 'InterSemi',
-      fontSize: 16,
-      padding: 8,
-      paddingHorizontal: 25,
+    color: "#FDFDFD",
+    fontFamily: "InterSemi",
+    fontSize: 16,
+    padding: 8,
+    paddingHorizontal: 25,
   },
-});
 
+  //   steps
+    stepIndicatorContainer: {
+        flexDirection: 'row',
+        gap: 8,
+        marginHorizontal: 10,
+  },
+    stepIndicator: {
+        flex: 1,
+        height: 5,
+        backgroundColor: "grey",
+        borderRadius: 10,
+    },
+});
 
 export default OnboardingScreen;
