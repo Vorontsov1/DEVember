@@ -6,6 +6,7 @@ import {
 import { useFonts, Inter_900Black, Inter_600SemiBold, Inter_400Regular } from "@expo-google-fonts/inter";
 import { useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -27,9 +28,11 @@ export default function RootLayout() {
       if (!fontsLoaded && !fontError) {
         return null;
       }
-    return (
-        <Stack screenoptions={ {} }>
-            <Stack.Screen name="index" options={{ title: 'DEVember' }} />
-        </Stack>
-    )
+  return (
+    <GestureHandlerRootView style={{flex: 1,}}>
+      <Stack screenoptions={{}}>
+        <Stack.Screen name="index" options={{ title: "DEVember" }} />
+      </Stack>
+    </GestureHandlerRootView>
+  );
 }
